@@ -1,5 +1,19 @@
 var f7, mainView;
 
+var month = new Array();
+month[0] = "Jan";
+month[1] = "Feb";
+month[2] = "Mar";
+month[3] = "Apr";
+month[4] = "May";
+month[5] = "Jun";
+month[6] = "Jul";
+month[7] = "Aug";
+month[8] = "Sep";
+month[9] = "Oct";
+month[10] = "Nov";
+month[11] = "Dec";
+
 var MainView = React.createClass({
 	loadList: function() {
 		$.ajax({
@@ -62,7 +76,23 @@ var MainView = React.createClass({
 var List = React.createClass({
 	render: function() {
 		var itemNodes = this.props.list.map(function(item) {
-			return (<ListItem id={item.id} title={item.title} content={item.content} />);
+			var date = new Date(item.id);
+			var now = new Date();
+			var time;
+			if (now.getFullYear() == date.getFullYear()) {
+				time = month[date.getMonth()] +" "+ date.getDate();
+				if (now.getDate() == date.getDate() && now.getTime() - date.getTime() < 86400000) {
+					time = date.toTimeString().substring(0,5);
+				}
+				var yesterday = new Date();
+				yesterday.setDate(yesterday.getDate() - 1);
+				if (yesterday.getDate() == date.getDate() && Math.abs(yesterday.getTime() - date.getTime()) < 86400000) {
+					time = "Yesterday";
+				}
+			} else {
+				time = date.toDateString();
+			}
+			return (<ListItem id={item.id} title={item.title} content={item.content} time={time} />);
 		});
 		return (
 			<div className="list-block media-list">
@@ -81,7 +111,7 @@ var ListItem = React.createClass({
 						<div className="item-inner">
 							<div className="item-title-row">
 								<div className="item-title">{this.props.title}</div>
-								<div className="item-after">{this.props.id}</div>
+								<div className="item-after">{this.props.time}</div>
 							</div>
 							<div className="item-text">{this.props.content}</div>
 						</div>
