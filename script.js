@@ -25,6 +25,20 @@ var MainView = React.createClass({
 			}.bind(this)
 		});
 	},
+	deleteItem: function(e) {
+		$.ajax({
+			url: this.props.url,
+			type: 'delete',
+			dataType: 'json',
+			data: JSON.stringify({delete: e.target.dataset.id}),
+			success: function(data) {
+				console.log(data);
+			},
+			error: function(xhr, status, err) {
+				console.error(this.props.url, status, err.toString());
+			}.bind(this)
+		});
+	},
 	getInitialState: function() {
 		return {
 			list: [],
@@ -43,6 +57,7 @@ var MainView = React.createClass({
 			dynamicNavbar: true
 		});
 		this.loadList();
+		$(document).on('delete', '.swipeout', this.deleteItem);
 	},
 	render: function() {
 		return (
@@ -105,7 +120,7 @@ var List = React.createClass({
 var ListItem = React.createClass({
 	render: function() {
 		return (
-			<li className="swipeout">
+			<li className="swipeout" data-id={this.props.id}>
 				<div className="swipeout-content">
 					<a href="#edit" className="item-content item-link">
 						<div className="item-inner">
