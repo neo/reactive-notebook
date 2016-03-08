@@ -34,7 +34,21 @@ var MainView = React.createClass({
 		});
 	},
 	submitForm: function(state) {
-		console.log(state);
+		$.ajax({
+			url: this.props.url,
+			type: 'put',
+			dataType: 'json',
+			data: JSON.stringify(state),
+			success: function(data) {
+				console.log(data);
+				this.setState({edit: {
+					id: "",
+					title: "",
+					content: "",
+					time: ""
+				}});
+			}.bind(this)
+		});
 	},
 	newItem: function() {
 		this.setState({
