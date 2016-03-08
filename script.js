@@ -41,20 +41,25 @@ var MainView = React.createClass({
 			data: JSON.stringify(state),
 			success: function(data) {
 				console.log(data);
-				this.setState({edit: {
-					id: "",
-					title: "",
-					content: "",
-					time: ""
-				}});
+				this.setState({
+					edit: {
+						id: "",
+						title: "",
+						content: "",
+						time: ""
+					},
+					editTitle: ""
+				});
 			}.bind(this)
 		});
 	},
 	newItem: function() {
 		this.setState({
 			edit: {
+				id: "",
 				title: "",
-				content: ""
+				content: "",
+				time: ""
 			},
 			editTitle: "New"
 		});
