@@ -57,7 +57,24 @@ var MainView = React.createClass({
 					});
 					break;
 				case "New":
-					console.log(state);
+					$.ajax({
+						url: this.props.url,
+						type: 'post',
+						dataType: 'json',
+						data: JSON.stringify(state),
+						success: function(data) {
+							console.log(data);
+							this.setState({
+								edit: {
+									id: "",
+									title: "",
+									content: "",
+									time: ""
+								},
+								editTitle: ""
+							});
+						}.bind(this)
+					});
 					break;
 			}
 		}
