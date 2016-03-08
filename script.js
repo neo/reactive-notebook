@@ -160,6 +160,18 @@ var ListItem = React.createClass({
 });
 
 var Form = React.createClass({
+	titleChange: function(e) {
+		this.setState({title: e.target.value});
+	},
+	contentChange: function(e) {
+		this.setState({content: e.target.value});
+	},
+	getInitialState: function() {
+		return {title: '', content: ''};
+	},
+	componentWillReceiveProps: function(props) {
+		if (JSON.stringify(this.props) != JSON.stringify(props)) this.setState(props.edit);
+	},
 	render: function() {
 		return (
 			<form className="list-block">
@@ -168,7 +180,7 @@ var Form = React.createClass({
 						<div className="item-cotent">
 							<div className="item-inner">
 								<div className="item-input">
-									<input type="text" value={this.props.edit.title} />
+									<input type="text" value={this.state.title} onChange={this.titleChange} />
 								</div>
 							</div>
 						</div>
@@ -177,7 +189,7 @@ var Form = React.createClass({
 						<div className="item-cotent">
 							<div className="item-inner">
 								<div className="item-input">
-									<textarea className="resizable" value={this.props.edit.content}></textarea>
+									<textarea className="resizable" value={this.state.content} onChange={this.contentChange}></textarea>
 								</div>
 							</div>
 						</div>
