@@ -161,7 +161,7 @@ var List = React.createClass({
 			} else {
 				time = date.toDateString();
 			}
-			return (<ListItem id={item.id} title={item.title} content={item.content} time={time} updateItem={this.props.updateItem} />);
+			return (<ListItem id={item.id} title={item.title} content={item.content} time={time} updateItem={this.props.updateItem} key={item.id} />);
 		}.bind(this));
 		return (
 			<div className="list-block media-list">
@@ -176,7 +176,7 @@ var ListItem = React.createClass({
 		return (
 			<li className="swipeout" data-id={this.props.id}>
 				<div className="swipeout-content">
-					<a href="#edit" className="item-content item-link" onClick={this.props.updateItem.bind(this, this.props)}>
+					<a href="#edit" className="item-content item-link" onClick={this.props.updateItem.bind(null, this.props)}>
 						<div className="item-inner">
 							<div className="item-title-row">
 								<div className="item-title">{this.props.title}</div>
