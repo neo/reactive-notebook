@@ -39,13 +39,29 @@ var MainView = React.createClass({
 			}.bind(this)
 		});
 	},
+	updateItem: function(props) {
+		this.setState({
+			edit: props,
+			editTitle: "Edit"
+		})
+	},
+	newItem: function() {
+		this.setState({
+			edit: {
+				title: "",
+				content: ""
+			},
+			editTitle: "New"
+		});
+	},
 	getInitialState: function() {
 		return {
 			list: [],
 			edit: {
-				title: "New",
+				title: "",
 				content: ""
-			}
+			},
+			editTitle: ""
 		};
 	},
 	componentDidMount: function() {
@@ -66,17 +82,17 @@ var MainView = React.createClass({
 				<div className="navbar">
 					<div className="navbar-inner" data-page="index">
 						<div className="center sliding">Notes</div>
-						<div className="right sliding"><a href="#edit" className="link">New</a></div>
+						<div className="right sliding"><a href="#edit" className="link" onClick={this.newItem}>New</a></div>
 					</div>
 					<div className="navbar-inner cached" data-page="edit">
 						<div className="left sliding"><a href="#" className="back link"><i className="icon icon-back"></i><span>Notes</span></a></div>
-						<div className="center sliding">{this.state.edit.title}</div>
+						<div className="center sliding">{this.state.editTitle}</div>
 					</div>
 				</div>
 				<div className="pages navbar-through">
 					<div className="page">
 						<div className="page-content">
-							<List list={this.state.list} />
+							<List list={this.state.list} updateItem={this.updateItem} />
 						</div>
 					</div>
 					<div className="page cached" data-page="edit">
@@ -109,8 +125,8 @@ var List = React.createClass({
 			} else {
 				time = date.toDateString();
 			}
-			return (<ListItem id={item.id} title={item.title} content={item.content} time={time} />);
-		});
+			return (<ListItem id={item.id} title={item.title} content={item.content} time={time} updateItem={this.props.updateItem} />);
+		}.bind(this));
 		return (
 			<div className="list-block media-list">
 				<ul>{itemNodes}</ul>
@@ -124,7 +140,7 @@ var ListItem = React.createClass({
 		return (
 			<li className="swipeout" data-id={this.props.id}>
 				<div className="swipeout-content">
-					<a href="#edit" className="item-content item-link">
+					<a href="#edit" className="item-content item-link" onClick={this.props.updateItem.bind(this, this.props)}>
 						<div className="item-inner">
 							<div className="item-title-row">
 								<div className="item-title">{this.props.title}</div>
