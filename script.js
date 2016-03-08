@@ -43,7 +43,10 @@ var MainView = React.createClass({
 		this.setState({
 			edit: props,
 			editTitle: "Edit"
-		})
+		});
+	},
+	submitForm: function(state) {
+		console.log(state);
 	},
 	newItem: function() {
 		this.setState({
@@ -97,7 +100,7 @@ var MainView = React.createClass({
 					</div>
 					<div className="page cached" data-page="edit">
 						<div className="page-content">
-							<Form edit={this.state.edit} />
+							<Form edit={this.state.edit} submitForm={this.submitForm} />
 						</div>
 					</div>
 				</div>
@@ -168,6 +171,15 @@ var Form = React.createClass({
 	},
 	getInitialState: function() {
 		return {title: '', content: ''};
+	},
+	componentDidMount: function() {
+		$('form').submit(function(e) {
+			e.preventDefault();
+			this.props.submitForm(this.state);
+		}.bind(this));
+		$(document).on('pageBack', '.page', function(e) {
+			$('form').submit();
+		});
 	},
 	componentWillReceiveProps: function(props) {
 		if (JSON.stringify(this.props) != JSON.stringify(props)) this.setState(props.edit);
