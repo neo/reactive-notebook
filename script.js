@@ -92,7 +92,7 @@ var MainView = React.createClass({
 var List = React.createClass({
 	render: function() {
 		var itemNodes = this.props.list.map(function(item) {
-			var date = new Date(item.id);
+			var date = new Date(item.id.replace(/-/g, "/"));
 			var now = new Date();
 			var time;
 			if (now.getFullYear() == date.getFullYear()) {
