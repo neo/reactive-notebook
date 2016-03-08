@@ -34,24 +34,33 @@ var MainView = React.createClass({
 		});
 	},
 	submitForm: function(state) {
-		$.ajax({
-			url: this.props.url,
-			type: 'put',
-			dataType: 'json',
-			data: JSON.stringify(state),
-			success: function(data) {
-				console.log(data);
-				this.setState({
-					edit: {
-						id: "",
-						title: "",
-						content: "",
-						time: ""
-					},
-					editTitle: ""
-				});
-			}.bind(this)
-		});
+		if (state.title || state.content) {
+			switch (this.state.editTitle) {
+				case "Edit":
+					$.ajax({
+						url: this.props.url,
+						type: 'put',
+						dataType: 'json',
+						data: JSON.stringify(state),
+						success: function(data) {
+							console.log(data);
+							this.setState({
+								edit: {
+									id: "",
+									title: "",
+									content: "",
+									time: ""
+								},
+								editTitle: ""
+							});
+						}.bind(this)
+					});
+					break;
+				case "New":
+					console.log(state);
+					break;
+			}
+		}
 	},
 	newItem: function() {
 		this.setState({
