@@ -57,6 +57,7 @@ var MainView = React.createClass({
 			dynamicNavbar: true
 		});
 		this.loadList();
+		setInterval(this.loadList, 2000);
 		$(document).on('delete', '.swipeout', this.deleteItem);
 	},
 	render: function() {
