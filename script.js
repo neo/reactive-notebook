@@ -81,6 +81,7 @@ var MainView = React.createClass({
 					</div>
 					<div className="page cached" data-page="edit">
 						<div className="page-content">
+							<Form edit={this.state.edit} />
 						</div>
 					</div>
 				</div>
@@ -138,6 +139,35 @@ var ListItem = React.createClass({
 						data-confirm="Are you sure you want to delete this note?" data-confirm-title="Delete?" data-close-on-cancel="true">Delete</a>
 				</div>
 			</li>
+		);
+	}
+});
+
+var Form = React.createClass({
+	render: function() {
+		return (
+			<form className="list-block">
+				<ul>
+					<li>
+						<div className="item-cotent">
+							<div className="item-inner">
+								<div className="item-input">
+									<input type="text" value={this.props.edit.title} />
+								</div>
+							</div>
+						</div>
+					</li>
+					<li className="align-top">
+						<div className="item-cotent">
+							<div className="item-inner">
+								<div className="item-input">
+									<textarea className="resizable" value={this.props.edit.content}></textarea>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</form>
 		);
 	}
 });
