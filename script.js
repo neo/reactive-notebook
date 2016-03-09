@@ -90,6 +90,12 @@ var MainView = React.createClass({
 			editTitle: "New"
 		});
 	},
+	childContextTypes: {
+		mainView: React.PropTypes.object
+	},
+	getChildContext: function() {
+		return {mainView: this.mainView};
+	},
 	getInitialState: function() {
 		return {
 			list: [],
@@ -121,7 +127,7 @@ var MainView = React.createClass({
 			var translate = '-100%';
 			el.find('.swipeout-content').transform('translate3d(' + translate + ',0,0)');
 		};
-		mainView = f7.addView('.view-main', {
+		this.mainView = f7.addView('.view-main', {
 			domCache: true,
 			dynamicNavbar: true
 		});
@@ -219,12 +225,16 @@ var Form = React.createClass({
 	contentChange: function(e) {
 		this.setState({content: e.target.value});
 	},
+	contextTypes: {
+		mainView: React.PropTypes.object
+	},
 	getInitialState: function() {
 		return {title: '', content: ''};
 	},
 	componentDidMount: function() {
 		$('form').submit(function(e) {
 			e.preventDefault();
+			this.context.mainView.router.back();
 			this.props.submitForm(this.state);
 		}.bind(this));
 		$(document).on('pageBack', '.page', function(e) {
