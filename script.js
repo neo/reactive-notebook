@@ -55,7 +55,7 @@ var MainView = React.createClass({
 					});
 					break;
 				case "New":
-					state.id = (new Date()).toISOString();
+					state.id = new Date();
 					this.state.list.unshift(state);
 					$.ajax({
 						url: this.props.url,
@@ -175,7 +175,7 @@ var MainView = React.createClass({
 var List = React.createClass({
 	render: function() {
 		var itemNodes = this.props.list.map(function(item) {
-			var date = new Date(item.id.replace(/-/g, "/"));
+			var date = item.id.replace ? new Date(item.id.replace(/-/g, "/")) : item.id;
 			var now = new Date();
 			var time;
 			if (now.getFullYear() == date.getFullYear()) {
