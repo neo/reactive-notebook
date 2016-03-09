@@ -1,5 +1,3 @@
-var f7, mainView;
-
 var month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 var MainView = React.createClass({
@@ -19,9 +17,7 @@ var MainView = React.createClass({
 			type: 'delete',
 			dataType: 'json',
 			data: JSON.stringify({delete: e.target.dataset.id}),
-			success: function(data) {
-				console.log(data);
-			},
+			success: function(data) {},
 			error: function(xhr, status, err) {
 				console.error(this.props.url, status, err.toString());
 			}.bind(this)
@@ -43,7 +39,6 @@ var MainView = React.createClass({
 						dataType: 'json',
 						data: JSON.stringify(state),
 						success: function(data) {
-							console.log(data);
 							this.setState({
 								edit: {
 									id: "",
@@ -53,6 +48,9 @@ var MainView = React.createClass({
 								},
 								editTitle: ""
 							});
+						}.bind(this),
+						error: function(xhr, status, err) {
+							console.error(this.props.url, status, err.toString());
 						}.bind(this)
 					});
 					break;
@@ -63,7 +61,6 @@ var MainView = React.createClass({
 						dataType: 'json',
 						data: JSON.stringify(state),
 						success: function(data) {
-							console.log(data);
 							this.setState({
 								edit: {
 									id: "",
@@ -73,6 +70,9 @@ var MainView = React.createClass({
 								},
 								editTitle: ""
 							});
+						}.bind(this),
+						error: function(xhr, status, err) {
+							console.error(this.props.url, status, err.toString());
 						}.bind(this)
 					});
 					break;
@@ -107,12 +107,12 @@ var MainView = React.createClass({
 		};
 	},
 	componentDidMount: function() {
-		f7 = new Framework7({
+		this.f7 = new Framework7({
 			animateNavBackIcon: true
 		});
 		// rewrote this method to prevent actually deleting the node,
 		// which would cause a React error of "Invariant Violation".
-		f7.swipeoutDelete = function (el, callback) {
+		this.f7.swipeoutDelete = function (el, callback) {
 			el = Dom7(el);
 			if (el.length === 0) return;
 			if (el.length > 1) el = $(el[0]);
@@ -127,7 +127,7 @@ var MainView = React.createClass({
 			var translate = '-100%';
 			el.find('.swipeout-content').transform('translate3d(' + translate + ',0,0)');
 		};
-		this.mainView = f7.addView('.view-main', {
+		this.mainView = this.f7.addView('.view-main', {
 			domCache: true,
 			dynamicNavbar: true
 		});
