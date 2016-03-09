@@ -104,6 +104,23 @@ var MainView = React.createClass({
 		f7 = new Framework7({
 			animateNavBackIcon: true
 		});
+		// rewrote this method to prevent actually deleting the node,
+		// which would cause a React error of "Invariant Violation".
+		f7.swipeoutDelete = function (el, callback) {
+			el = Dom7(el);
+			if (el.length === 0) return;
+			if (el.length > 1) el = $(el[0]);
+			f7.swipeoutOpenedEl = undefined;
+			el.trigger('delete');
+			el.css({height: el.outerHeight() + 'px'});
+			var clientLeft = el[0].clientLeft;
+			el.css({height: 0 + 'px'}).addClass('deleting transitioning').transitionEnd(function () {
+				el.trigger('deleted');
+				if (callback) callback.call(el[0]);
+			});
+			var translate = '-100%';
+			el.find('.swipeout-content').transform('translate3d(' + translate + ',0,0)');
+		};
 		mainView = f7.addView('.view-main', {
 			domCache: true,
 			dynamicNavbar: true
