@@ -55,6 +55,8 @@ var MainView = React.createClass({
 					});
 					break;
 				case "New":
+					state.id = (new Date()).toISOString();
+					this.state.list.unshift(state);
 					$.ajax({
 						url: this.props.url,
 						type: 'post',
@@ -72,6 +74,7 @@ var MainView = React.createClass({
 							});
 						}.bind(this),
 						error: function(xhr, status, err) {
+							this.state.list.shift();
 							console.error(this.props.url, status, err.toString());
 						}.bind(this)
 					});
