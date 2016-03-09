@@ -255,7 +255,7 @@ var Form = React.createClass({
 			<form className="list-block">
 				<ul>
 					<li>
-						<div className="item-cotent">
+						<div className="item-content">
 							<div className="item-inner">
 								<div className="item-input">
 									<input type="text" value={this.state.title} onChange={this.titleChange} />
@@ -264,7 +264,7 @@ var Form = React.createClass({
 						</div>
 					</li>
 					<li className="align-top">
-						<div className="item-cotent">
+						<div className="item-content">
 							<div className="item-inner">
 								<div className="item-input">
 									<textarea className="resizable" value={this.state.content} onChange={this.contentChange}></textarea>
