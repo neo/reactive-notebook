@@ -271,7 +271,7 @@ var Form = React.createClass({
 						<div className="item-content">
 							<div className="item-inner">
 								<div className="item-input">
-									<input type="text" value={this.state.title} onChange={this.titleChange} />
+									<input type="text" value={this.state.title} onChange={this.titleChange} placeholder="Title" />
 								</div>
 							</div>
 						</div>
@@ -280,7 +280,7 @@ var Form = React.createClass({
 						<div className="item-content">
 							<div className="item-inner">
 								<div className="item-input">
-									<textarea className="resizable" value={this.state.content} onChange={this.contentChange}></textarea>
+									<textarea className="resizable" value={this.state.content} onChange={this.contentChange} placeholder="Content"></textarea>
 								</div>
 							</div>
 						</div>
