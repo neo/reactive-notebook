@@ -91,10 +91,14 @@ var MainView = React.createClass({
 		});
 	},
 	childContextTypes: {
+		f7: React.PropTypes.object,
 		mainView: React.PropTypes.object
 	},
 	getChildContext: function() {
-		return {mainView: this.mainView};
+		return {
+			f7: this.f7,
+			mainView: this.mainView
+		};
 	},
 	getInitialState: function() {
 		return {
@@ -116,7 +120,7 @@ var MainView = React.createClass({
 			el = Dom7(el);
 			if (el.length === 0) return;
 			if (el.length > 1) el = $(el[0]);
-			f7.swipeoutOpenedEl = undefined;
+			this.f7.swipeoutOpenedEl = undefined;
 			el.trigger('delete');
 			el.css({height: el.outerHeight() + 'px'});
 			var clientLeft = el[0].clientLeft;
@@ -126,7 +130,7 @@ var MainView = React.createClass({
 			});
 			var translate = '-100%';
 			el.find('.swipeout-content').transform('translate3d(' + translate + ',0,0)');
-		};
+		}.bind(this);
 		this.mainView = this.f7.addView('.view-main', {
 			domCache: true,
 			dynamicNavbar: true
@@ -226,6 +230,7 @@ var Form = React.createClass({
 		this.setState({content: e.target.value});
 	},
 	contextTypes: {
+		f7: React.PropTypes.object,
 		mainView: React.PropTypes.object
 	},
 	getInitialState: function() {
@@ -248,7 +253,12 @@ var Form = React.createClass({
 		}.bind(this));
 	},
 	componentWillReceiveProps: function(props) {
-		if (JSON.stringify(this.props) != JSON.stringify(props)) this.setState(props.edit);
+		if (JSON.stringify(this.props) != JSON.stringify(props)) {
+			this.setState(props.edit);
+			setTimeout(function() {
+				this.context.f7.resizeTextarea('textarea');
+			}.bind(this), 0);
+		}
 	},
 	render: function() {
 		return (
