@@ -229,7 +229,13 @@ var Form = React.createClass({
 		}.bind(this));
 		$(document).on('pageBack', '.page', function(e) {
 			$('form').submit();
-		});
+			this.setState({
+				id: "",
+				title: "",
+				content: "",
+				time: ""
+			});
+		}.bind(this));
 	},
 	componentWillReceiveProps: function(props) {
 		if (JSON.stringify(this.props) != JSON.stringify(props)) this.setState(props.edit);
