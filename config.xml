@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.sheridan.imm.collective" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
+	<name>React Notes</name>
+	<description>A reactive notebook</description>
+	<icon src="icon.png" />
+	<icon src="icon.png" platform="ios" width="180" height="180" />
+	<splash src="splash.png" />
+	<splash src="splash.png" platform="ios" width="750" height="1334" />
+	<preference name="orientation" value="portrait" />
+</widget>
