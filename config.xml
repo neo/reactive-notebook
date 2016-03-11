@@ -8,4 +8,7 @@
 	<splash src="splash.png" platform="ios" width="750" height="1334" />
 	<preference name="orientation" value="portrait" />
 	<preference name="DisallowOverscroll" value="true" />
+	<plugin name="cordova-plugin-splashscreen" />
+	<preference name="AutoHideSplashScreen" value="false" />
+	<preference name="ShowSplashScreenSpinner" value="false"/>
 </widget>
