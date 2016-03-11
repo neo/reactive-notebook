@@ -7,4 +7,5 @@
 	<splash src="splash.png" />
 	<splash src="splash.png" platform="ios" width="750" height="1334" />
 	<preference name="orientation" value="portrait" />
+	<preference name="DisallowOverscroll" value="true" />
 </widget>
