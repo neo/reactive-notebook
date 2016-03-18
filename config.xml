@@ -12,4 +12,5 @@
 	<preference name="AutoHideSplashScreen" value="false" />
 	<preference name="ShowSplashScreenSpinner" value="false"/>
 	<preference name="FadeSplashScreenDuration" value="500"/>
+	<plugin name="cordova-plugin-touchid" />
 </widget>

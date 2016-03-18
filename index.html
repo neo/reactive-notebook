@@ -22,7 +22,15 @@
 	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	<script>
 	document.addEventListener("deviceready", function () {
-		navigator.splashscreen.hide();
+		touchid.checkSupport(function () {
+			touchid.authenticate(function () {
+				navigator.splashscreen.hide();
+			}, function () {
+				alert("Authentication failed.");
+			}, "Unlock the notebook")
+		}, function () {
+			alert("Touch ID not supported");
+		});
 	}, false);
 	</script>
 </body>
